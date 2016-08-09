@@ -1,0 +1,11 @@
+{
+  "name": "febalist/laravel-model",
+  "autoload": {
+    "psr-4": {
+      "Febalist\\LaravelModel\\": "src/"
+    }
+  },
+  "require": {
+    "jenssegers/date": "3.*"
+  }
+}
