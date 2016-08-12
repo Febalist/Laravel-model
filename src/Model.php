@@ -4,6 +4,11 @@ use DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Jenssegers\Date\Date;
 
+/**
+ * @property integer id
+ * @property Date    created_at
+ * @property Date    updated_at
+ */
 class Model extends Eloquent
 {
 
