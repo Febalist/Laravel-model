@@ -43,4 +43,13 @@ class Model extends Eloquent
         return Date::parse($value);
     }
 
+    protected function mutateAttribute($key, $value)
+    {
+        if ($this->hasCast($key)) {
+            $value = $this->castAttribute($key, $value);
+        }
+        $value = parent::mutateAttribute($key, $value);
+        return $value;
+    }
+
 }
