@@ -3,6 +3,7 @@
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Support\Collection;
 use Jenssegers\Date\Date;
 
 /**
@@ -19,6 +20,7 @@ use Jenssegers\Date\Date;
  * @method static $this firstOrNew(array $attributes)
  * @method static $this firstOrCreate(array $attributes, array $values = [])
  * @method static $this updateOrCreate(array $attributes, array $values = [])
+ * @method static Collection pluck($column, $key = null)
  * @method static $this chunk($count, callable $callback)
  */
 class Model extends Eloquent
