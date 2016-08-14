@@ -10,7 +10,16 @@ use Jenssegers\Date\Date;
  * @property Date    created_at
  * @property Date    updated_at
  * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static $this find($id, $columns = ['*'])
+ * @method static $this findMany($ids, $columns = ['*'])
+ * @method static $this findOrFail($id, $columns = ['*'])
+ * @method static $this findOrNew($id, $columns = ['*'])
  * @method static $this first($columns = ['*'])
+ * @method static $this firstOrFail($columns = ['*'])
+ * @method static $this firstOrNew(array $attributes)
+ * @method static $this firstOrCreate(array $attributes, array $values = [])
+ * @method static $this updateOrCreate(array $attributes, array $values = [])
+ * @method static $this chunk($count, callable $callback)
  */
 class Model extends Eloquent
 {
