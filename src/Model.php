@@ -1,6 +1,5 @@
 <?php namespace Febalist\LaravelModel;
 
-use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Collection;
@@ -11,6 +10,7 @@ use Jenssegers\Date\Date;
  * @property Date    created_at
  * @property Date    updated_at
  * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static Builder whereIn($column, $values, $boolean = 'and', $not = false)
  * @method static $this find($id, $columns = ['*'])
  * @method static $this findMany($ids, $columns = ['*'])
  * @method static $this findOrFail($id, $columns = ['*'])
@@ -25,18 +25,19 @@ use Jenssegers\Date\Date;
  */
 class Model extends Eloquent
 {
-
     protected $guarded = [];
 
     public static function clear($ids = [])
     {
-        $instance = new static;
-        $table    = $instance->getTable();
-        $query    = DB::table($table);
-        if ($ids) {
-            $query->whereIn('id', $ids);
+        if (!$ids) {
+            return 0;
         }
-        return $query->delete();
+        return static::whereIn('id', $ids)->delete();
+    }
+
+    public static function clearAll()
+    {
+        return static::where(true)->delete();
     }
 
     protected function asDateTime($value)
