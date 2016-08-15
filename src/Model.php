@@ -27,15 +27,17 @@ class Model extends Eloquent
 {
     protected $guarded = [];
 
-    public static function clear($ids = [])
+    public static function remove($ids = [])
     {
-        if (!$ids) {
-            return 0;
+        $ids = array_filter($ids);
+        $ids = array_unique($ids);
+        if (count($ids) > 0) {
+            return static::whereIn('id', $ids)->delete();
         }
-        return static::whereIn('id', $ids)->delete();
+        return 0;
     }
 
-    public static function clearAll()
+    public static function removeAll()
     {
         return static::where(true)->delete();
     }
