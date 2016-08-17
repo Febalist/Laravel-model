@@ -72,25 +72,23 @@ class Model extends Eloquent
         $this->setAttributeToArray($key, $value);
     }
 
-    protected function getList($key, $delimiter = ',')
+    protected function getList($key, $delimiter = ',', $callback = null, $arguments = [])
     {
         $list = $this->getAttributeFromArray($key);
+        if ($callback) {
+            $list = array_map_args($list, $callback, $arguments);
+        }
         return explode($delimiter, $list);
     }
 
-    protected function setList($key, $list, $delimiter = ',', $transform = null, $arguments = null)
+    protected function setList($key, $list, $delimiter = ',', $callback = null, $arguments = [])
     {
-        $arguments = func_get_args();
-        $arguments = array_slice($arguments, 3);
-        $list      = list_cleanup($list, function ($element) use ($transform, $arguments) {
-            $element = trim($element);
-            if ($transform) {
-                $arguments[0] = $element;
-                $element      = call_user_func_array($transform, $arguments);
-            }
-            return $element;
-        });
-        $list      = implode($delimiter, $list);
+        $list = list_cleanup($list, 'trim');
+        if ($callback) {
+            $list = array_map_args($list, $callback, $arguments);
+            $list = list_cleanup($list);
+        }
+        $list = implode($delimiter, $list);
         $this->setAttributeToArray($key, $list);
     }
 }
