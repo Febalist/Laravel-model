@@ -78,7 +78,8 @@ class Model extends Eloquent
         if ($callback) {
             $list = array_map_args($list, $callback, $arguments);
         }
-        return explode($delimiter, $list);
+        $list = explode($delimiter, $list);
+        return array_filter($list);
     }
 
     protected function setList($key, $list, $delimiter = ',', $callback = null, $arguments = [])
