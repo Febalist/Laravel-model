@@ -48,6 +48,11 @@ class Model extends Eloquent
         return Date::parse($value);
     }
 
+    protected function setAttributeToArray($key, $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
     protected function getJson($key, $default = null)
     {
         $value = $this->getAttributeFromArray($key);
@@ -64,7 +69,28 @@ class Model extends Eloquent
         } else {
             $value = $this->asJson($value);
         }
-        $this->attributes[$key] = $value;
+        $this->setAttributeToArray($key, $value);
     }
 
+    protected function getList($key, $delimiter = ',')
+    {
+        $list = $this->getAttributeFromArray($key);
+        return explode($delimiter, $list);
+    }
+
+    protected function setList($key, $list, $delimiter = ',', $transform = null, $arguments = null)
+    {
+        $arguments = func_get_args();
+        $arguments = array_slice($arguments, 3);
+        $list      = list_cleanup($list, function ($element) use ($transform, $arguments) {
+            $element = trim($element);
+            if ($transform) {
+                $arguments[0] = $element;
+                $element      = call_user_func_array($transform, $arguments);
+            }
+            return $element;
+        });
+        $list      = implode($delimiter, $list);
+        $this->setAttributeToArray($key, $list);
+    }
 }
