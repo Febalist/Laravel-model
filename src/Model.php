@@ -48,16 +48,4 @@ class Model extends Eloquent
         return Date::parse($value);
     }
 
-    protected function mutateAttribute($key, $value)
-    {
-        if ($this->hasCast($key)) {
-            $value = $this->castAttribute($key, $value);
-            if ($this->getCastType($key) == 'array') {
-                $value = $value ?: [];
-            }
-        }
-        $value = parent::mutateAttribute($key, $value);
-        return $value;
-    }
-
 }
