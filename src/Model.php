@@ -52,6 +52,9 @@ class Model extends Eloquent
     {
         if ($this->hasCast($key)) {
             $value = $this->castAttribute($key, $value);
+            if ($this->getCastType($key) == 'array') {
+                $value = $value ?: [];
+            }
         }
         $value = parent::mutateAttribute($key, $value);
         return $value;
