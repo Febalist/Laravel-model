@@ -1,11 +1,13 @@
 {
-  "name": "febalist/laravel-model",
-  "autoload": {
-    "psr-4": {
-      "Febalist\\LaravelModel\\": "src/"
+    "name": "febalist/laravel-model",
+    "autoload": {
+        "psr-4": {
+            "Febalist\\LaravelModel\\": "src/"
+        }
+    },
+    "require": {
+        "laravel/framework": "5.4.*",
+        "febalist/laravel-support": "2.*",
+        "jenssegers/date": "3.*"
     }
-  },
-  "require": {
-    "jenssegers/date": "3.*"
-  }
 }
