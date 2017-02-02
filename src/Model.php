@@ -4,12 +4,9 @@ namespace Febalist\LaravelModel;
 
 use Eloquent;
 use Illuminate\Support\Collection;
-use Jenssegers\Date\Date;
 
 /**
  * @property integer id
- * @property Date    created_at
- * @property Date    updated_at
  */
 class Model extends Eloquent
 {
@@ -28,12 +25,6 @@ class Model extends Eloquent
     public static function removeAll()
     {
         return static::where(true)->delete();
-    }
-
-    protected function asDateTime($value)
-    {
-        $value = parent::asDateTime($value);
-        return Date::parse($value);
     }
 
     protected function setAttributeToArray($key, $value)
