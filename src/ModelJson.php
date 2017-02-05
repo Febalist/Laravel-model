@@ -9,13 +9,13 @@ use Illuminate\Support\Collection;
  */
 trait ModelJson
 {
-
     protected function getJson($key, $default = null)
     {
         $value = $this->getAttributeFromArray($key);
         if (is_null($value)) {
             return $default;
         }
+
         return $this->fromJson($value);
     }
 
@@ -28,5 +28,4 @@ trait ModelJson
         }
         $this->attributes[$key] = $value;
     }
-
 }
